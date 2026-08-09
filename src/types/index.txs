@@ -1,0 +1,170 @@
+export type QuestCategory =
+  | "Social"
+  | "Academic"
+  | "Entrepreneurship"
+  | "Creativity"
+  | "Leadership"
+  | "Health"
+  | "Career"
+  | "Community";
+
+export type SkillName =
+  | "Knowledge"
+  | "Communication"
+  | "Creativity"
+  | "Leadership"
+  | "Entrepreneurship"
+  | "Social"
+  | "Discipline"
+  | "Problem Solving";
+
+export interface Skill {
+  name: SkillName;
+  value: number;
+  max: number;
+}
+
+export interface UserProfile {
+  id: string;
+  email: string;
+  name: string;
+  age: number;
+  university: string;
+  faculty: string;
+  degree: string;
+  yearOfStudy: number;
+  interests: string[];
+  personalGoals: string[];
+  preferredQuestTypes: QuestCategory[];
+  avatarUrl?: string;
+  level: number;
+  xp: number;
+  totalQuestsCompleted: number;
+  currentStreak: number;
+  longestStreak: number;
+  lastQuestDate?: string;
+  skills: Skill[];
+  createdAt: string;
+  isAdmin?: boolean;
+
+  // Social / Connect fields
+  instagram?: string;
+  linkedin?: string;
+  bio?: string;
+  openToConnect?: boolean;
+}
+
+export interface Quest {
+  id: string;
+  title: string;
+  description: string;
+  category: QuestCategory;
+  difficulty: number;
+  estimatedDuration: string;
+  xpReward: number;
+  skillsRewarded: Partial<Record<SkillName, number>>;
+  instructions: string[];
+  completionCriteria: string;
+  createdBy: "ai" | "admin" | "system";
+  isActive: boolean;
+  createdAt: string;
+}
+
+export type UserQuestStatus = "available" | "accepted" | "completed" | "expired";
+
+export interface UserQuest {
+  id: string;
+  userId: string;
+  questId: string;
+  quest?: Quest;
+  status: UserQuestStatus;
+  acceptedAt?: string;
+  completedAt?: string;
+  reflection?: string;
+  evidenceUrl?: string;
+  xpAwarded?: number;
+  qualityScore?: number;
+  aiFeedback?: string;
+}
+
+export interface Achievement {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  condition: string;
+  xpBonus: number;
+}
+
+export interface UserAchievement {
+  id: string;
+  userId: string;
+  achievementId: string;
+  unlockedAt: string;
+  achievement?: Achievement;
+}
+
+export interface BossBattle {
+  id: string;
+  title: string;
+  objective: string;
+  description: string;
+  deadline: string;
+  rules: string[];
+  reward: string;
+  xpReward: number;
+  participants: number;
+  maxParticipants?: number;
+  isActive: boolean;
+  progress?: number;
+}
+
+export interface LeaderboardEntry {
+  rank: number;
+  userId: string;
+  name: string;
+  level: number;
+  xp: number;
+  faculty: string;
+  avatarUrl?: string;
+}
+
+export interface FacultyRanking {
+  faculty: string;
+  totalXp: number;
+  studentCount: number;
+  averageLevel: number;
+}
+
+export interface OnboardingData {
+  name: string;
+  age: number;
+  university: string;
+  faculty: string;
+  degree: string;
+  yearOfStudy: number;
+  interests: string[];
+  personalGoals: string[];
+  preferredQuestTypes: QuestCategory[];
+
+  // Social fields
+  instagram?: string;
+  linkedin?: string;
+  bio?: string;
+  openToConnect?: boolean;
+}
+
+export interface QuestGenerationContext {
+  profile: UserProfile;
+  completedQuests: Quest[];
+  preferredDifficulty?: number;
+  categoryHint?: QuestCategory;
+}
+
+export interface ReflectionAnalysis {
+  quality: "excellent" | "good" | "fair" | "poor";
+  detectedSkills: SkillName[];
+  feedback: string;
+  xpMultiplier: number;
+  recommendedXp: number;
+}
